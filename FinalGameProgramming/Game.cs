@@ -4,6 +4,8 @@ public class Game
 {
     private bool _isRunning;
 
+    Pets petsScript = new Pets();
+
     public async Task GameLoop()
     {
         // Initialize the game
@@ -52,7 +54,7 @@ public class Game
         }
         else if (choice == "2")
         {
-
+            petsScript.ShowCaseCurrentPets();
         }
         else if (choice == "3")
         {
