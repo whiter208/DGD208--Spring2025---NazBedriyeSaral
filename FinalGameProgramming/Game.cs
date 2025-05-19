@@ -1,4 +1,6 @@
-﻿public class Game
+﻿using FinalGameProgramming;
+
+public class Game
 {
     private bool _isRunning;
 
@@ -23,18 +25,42 @@
 
     private void Initialize()
     {
-        Console.WriteLine("haha");
+        Console.WriteLine("Press to start!");
+        Console.WriteLine("Naz Bedriye Saral 225040061");
+        Console.ReadLine();
+        
     }
 
     private string GetUserInput()
     {
-        // Use this to display appropriate menu and get user inputs
-        return "";
+        Console.WriteLine("1 - Pet Adoptation");
+        Console.WriteLine("2 - Pet Showcase");
+        Console.WriteLine("3 - Pet Room");
+        Console.WriteLine("4 - Quit Game");
+
+        string userInput = Console.ReadLine();
+        return userInput;
     }
 
     private async Task ProcessUserChoice(string choice)
     {
-        // Use this to process any choice user makes
-        // Set _isRunning = false to exit the game
+        if (choice == "1")
+        {
+            List<PetType> petTypes = Enum.GetValues(typeof(PetType)).Cast<PetType>().ToList();
+            var petMenu = new Menu<PetType>("Select an pet to adopt.", petTypes, pet => pet.ToString());
+            PetType selectedPet = petMenu.ShowAndGetSelection();
+        }
+        else if (choice == "2")
+        {
+
+        }
+        else if (choice == "3")
+        {
+
+        }
+        else if (choice == "4")
+        {
+            _isRunning = false;
+        }
     }
 }
