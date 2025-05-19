@@ -30,7 +30,7 @@ public class Game
         Console.WriteLine("Press to start!");
         Console.WriteLine("Naz Bedriye Saral 225040061");
         Console.ReadLine();
-        
+
     }
 
     private string GetUserInput()
@@ -50,7 +50,14 @@ public class Game
         {
             List<PetType> petTypes = Enum.GetValues(typeof(PetType)).Cast<PetType>().ToList();
             var petMenu = new Menu<PetType>("Select an pet to adopt.", petTypes, pet => pet.ToString());
-            PetType selectedPet = petMenu.ShowAndGetSelection();
+            PetType selectedPet;
+            if (petMenu.TryShowAndGetSelection(out PetType _selectedPetType))
+            {
+                selectedPet = _selectedPetType;
+                petsScript.CreatePet(selectedPet);
+            }
+
+
         }
         else if (choice == "2")
         {

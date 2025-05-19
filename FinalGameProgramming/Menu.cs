@@ -25,13 +25,16 @@ public class Menu<T>
     /// Displays the menu and gets the user's selection.
     /// </summary>
     /// <returns>The selected item, or default(T) if the user chooses to go back</returns>
-    public T ShowAndGetSelection()
+
+    public bool TryShowAndGetSelection(out T selectedItem)
     {
+        selectedItem = default;
+
         if (_items.Count == 0)
         {
             Console.WriteLine($"No items available in {_title}. Press any key to continue...");
             Console.ReadKey();
-            return default;
+            return false;
         }
 
         while (true)
@@ -40,7 +43,6 @@ public class Menu<T>
             Console.WriteLine($"=== {_title} ===");
             Console.WriteLine();
 
-            // Display menu items with numbers
             for (int i = 0; i < _items.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {_displaySelector(_items[i])}");
@@ -51,20 +53,19 @@ public class Menu<T>
             Console.WriteLine();
             Console.Write("Enter selection: ");
 
-            // Get user input
             string input = Console.ReadLine();
 
-            // Try to parse the input
             if (int.TryParse(input, out int selection))
             {
-                // Check for "Go Back" option
                 if (selection == 0)
-                    return default; // Return default value of T to indicate backing out
+                {
+                    return false; // user chose "Go Back"
+                }
 
-                // Check if selection is valid
                 if (selection > 0 && selection <= _items.Count)
                 {
-                    return _items[selection - 1];
+                    selectedItem = _items[selection - 1];
+                    return true;
                 }
             }
 
@@ -72,4 +73,5 @@ public class Menu<T>
             Console.ReadKey();
         }
     }
+
 }
