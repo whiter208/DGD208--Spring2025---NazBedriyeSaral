@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FinalGameProgramming
 {
@@ -24,6 +21,22 @@ namespace FinalGameProgramming
         public string ShowStats()
         {
             return $" ({type}) - Hunger: {hunger}, Sleep: {sleep}, Fun: {fun}";
+        }
+
+       public void ChangeStats()
+        {
+            Console.WriteLine("stats have changed");
+            hunger--;
+            sleep++;
+            fun--;
+            if (hunger < 0 && sleep > 100 && fun <= 0)
+            {
+                KillPet();
+            }
+        }
+        void KillPet()
+        {
+            //Should kill the pet  
         }
     }
 }
