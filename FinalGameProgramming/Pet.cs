@@ -5,7 +5,7 @@ namespace FinalGameProgramming
 {
     internal class Pet
     {
-
+        public Pets manager;
 
         PetType type;
         int hunger;
@@ -26,17 +26,22 @@ namespace FinalGameProgramming
        public void ChangeStats()
         {
             Console.WriteLine("stats have changed");
-            hunger--;
+            hunger++;
             sleep++;
             fun--;
-            if (hunger < 0 && sleep > 100 && fun <= 0)
+            if (hunger > 100 && sleep > 100 && fun <= 0)
             {
                 KillPet();
             }
         }
+        public void OnTick(object sender, EventArgs e)
+        {
+            ChangeStats();
+        }
         void KillPet()
         {
             //Should kill the pet  
+            manager.RemovePet(this);
         }
     }
 }

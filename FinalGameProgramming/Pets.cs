@@ -29,16 +29,19 @@ namespace FinalGameProgramming
             Pet pet = new Pet();
             pet.PetStart(_petType);
             currentPets.Add(pet);
-            OnTick += (sender, e) =>
-            {
-                //Console.WriteLine("Tick at: " + DateTime.Now);
-                // Optionally do something with pets
-                pet.ChangeStats();
-            };
+            OnTick += pet.OnTick;
+            pet.manager = this;
 
 
         }
+        public void RemovePet(Pet _pet)
+        {
+            OnTick -= _pet.OnTick;
+            currentPets.Remove(_pet);
 
+
+            Console.WriteLine($"Pet of type removed from system.");
+        }
         public void ShowCaseCurrentPets()
         {
             for (int i = 0; i < currentPets.Count; i++)
