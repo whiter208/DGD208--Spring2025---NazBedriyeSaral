@@ -49,7 +49,9 @@ public class Menu<T>
             }
 
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("0. Go Back");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             Console.Write("Enter selection: ");
 
@@ -69,7 +71,7 @@ public class Menu<T>
                 }
             }
 
-            Console.WriteLine("Invalid selection. Press any key to try again.");
+            Console.WriteLine("Invalid selection. Press enter to try again.");
             Console.ReadKey();
         }
     }

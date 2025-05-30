@@ -31,6 +31,9 @@ namespace FinalGameProgramming
             currentPets.Add(pet);
             OnTick += pet.OnTick;
             pet.manager = this;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("You adopted a " + _petType);
+            Console.ForegroundColor = ConsoleColor.White;
 
 
         }
@@ -40,7 +43,7 @@ namespace FinalGameProgramming
             currentPets.Remove(_pet);
 
 
-            Console.WriteLine($"{_pet }type removed from Tamagochi.");
+            Console.WriteLine($"{_pet}type removed from Tamagochi.");
         }
         public void ShowCaseCurrentPets()
         {
@@ -48,6 +51,7 @@ namespace FinalGameProgramming
             {
                 Console.WriteLine(currentPets[i].ShowStats());
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
 

@@ -27,8 +27,8 @@ public class Game
 
     private void Initialize()
     {
-        Console.WriteLine("Press to start!");
-        Console.WriteLine("Naz Bedriye Saral 225040061");
+        Console.WriteLine("Press enter to start!");
+        Console.WriteLine("Naz Bedriye Saral 225040061 and our lord and savior ChatGPT.");
         Console.ReadLine();
 
     }
@@ -37,7 +37,7 @@ public class Game
     {
         Console.WriteLine("1 - Pet Adoptation");
         Console.WriteLine("2 - Pet Showcase");
-        Console.WriteLine("3 - Pet Room");
+        Console.WriteLine("3 - Use items on Pet");
         Console.WriteLine("4 - Quit Game");
 
         string userInput = Console.ReadLine();
@@ -62,14 +62,65 @@ public class Game
         else if (choice == "2")
         {
             petsScript.ShowCaseCurrentPets();
+            Console.ForegroundColor = ConsoleColor.White;
         }
         else if (choice == "3")
         {
-
+            await UseItemOnPetAsync(); // <- here!
+            
         }
         else if (choice == "4")
         {
             _isRunning = false;
         }
     }
+    private async Task UseItemOnPetAsync()
+    {
+        if (petsScript.currentPets.Count == 0)
+        {
+            Console.WriteLine("No pets available to use items on.");
+            Console.WriteLine("Press any key to return to Tamagochi.");
+            Console.ReadKey();
+            return;
+        }
+
+        // 1. Select a Pet
+        var petMenu = new Menu<Pet>(
+            "Choose a Pet",
+            petsScript.currentPets,
+            pet => pet.ShowStats()
+        );
+
+        if (!petMenu.TryShowAndGetSelection(out Pet selectedPet))
+            return;
+
+        // 2. Filter compatible items
+        var compatibleItems = ItemDatabase.AllItems
+            .Where(item => item.CompatibleWith.Contains(selectedPet.GetPetType()))
+            .ToList();
+
+        if (compatibleItems.Count == 0)
+        {
+            Console.WriteLine("No compatible items found for this pet.");
+            Console.ReadKey();
+            return;
+        }
+
+        // 3. Select an Item
+        var itemMenu = new Menu<Item>(
+            $"Choose an item for your {selectedPet.GetPetType()}",
+            compatibleItems,
+            item => $"{item.Name} - {item.Type}, {item.AffectedStat}+{item.EffectAmount}, {item.Duration}s"
+        );
+
+        if (!itemMenu.TryShowAndGetSelection(out Item chosenItem))
+            return;
+
+        // 4. Use the Item
+        await selectedPet.UseItemAsync(chosenItem);
+
+        Console.WriteLine("Press any key to return to main menu...");
+        Console.ReadKey();
+    }
+
 }
