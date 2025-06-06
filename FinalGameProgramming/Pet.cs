@@ -31,7 +31,7 @@ namespace FinalGameProgramming
             hunger++;
             sleep++;
             fun--;
-            if (hunger > 100 && sleep > 100 && fun <= 0)
+            if (hunger > 100 || sleep > 100 || fun <= 0)
             {
                 KillPet();
             }
@@ -67,14 +67,16 @@ namespace FinalGameProgramming
                     sleep = Math.Min(100, sleep + item.EffectAmount);
                     break;
                 case PetStat.Fun:
-                    fun = Math.Min(100, fun + item.EffectAmount);
+                    fun = Math.Min(1000, fun + item.EffectAmount);
                     break;
             }
 
             Console.WriteLine($"{item.Name} used successfully!");
             Console.WriteLine("Updated Stats: " + ShowStats());
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
-        
+
     }
 
 

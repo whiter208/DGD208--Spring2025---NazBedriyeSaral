@@ -32,7 +32,7 @@ public class Menu<T>
 
         if (_items.Count == 0)
         {
-            Console.WriteLine($"No items available in {_title}. Press any key to continue...");
+            Console.WriteLine($"No items available in {_title}. Press enter to continue...");
             Console.ReadKey();
             return false;
         }

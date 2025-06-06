@@ -79,7 +79,7 @@ public class Game
         if (petsScript.currentPets.Count == 0)
         {
             Console.WriteLine("No pets available to use items on.");
-            Console.WriteLine("Press any key to return to Tamagochi.");
+            Console.WriteLine("Press enter to return to Tamagochi.");
             Console.ReadKey();
             return;
         }
@@ -89,7 +89,10 @@ public class Game
             "Choose a Pet",
             petsScript.currentPets,
             pet => pet.ShowStats()
+
         );
+        Console.ForegroundColor = ConsoleColor.White;
+
 
         if (!petMenu.TryShowAndGetSelection(out Pet selectedPet))
             return;
@@ -110,7 +113,7 @@ public class Game
         var itemMenu = new Menu<Item>(
             $"Choose an item for your {selectedPet.GetPetType()}",
             compatibleItems,
-            item => $"{item.Name} - {item.Type}, {item.AffectedStat}+{item.EffectAmount}, {item.Duration}s"
+            item => $"{item.Name} - {item.Type}, {item.AffectedStat} -> {item.EffectAmount} , {item.Duration}s"
         );
 
         if (!itemMenu.TryShowAndGetSelection(out Item chosenItem))
@@ -119,7 +122,7 @@ public class Game
         // 4. Use the Item
         await selectedPet.UseItemAsync(chosenItem);
 
-        Console.WriteLine("Press any key to return to main menu...");
+        Console.WriteLine("Press enter to return to main menu...");
         Console.ReadKey();
     }
 

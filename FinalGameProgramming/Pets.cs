@@ -43,7 +43,7 @@ namespace FinalGameProgramming
             currentPets.Remove(_pet);
 
 
-            Console.WriteLine($"{_pet}type removed from Tamagochi.");
+            Console.WriteLine($"{_pet.GetPetType()}type removed from Tamagochi.");
         }
         public void ShowCaseCurrentPets()
         {
